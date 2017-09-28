@@ -1,0 +1,119 @@
+﻿@model assignment1.Models.WorkerVM
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script src="http://code.jquery.com/ jquery-1.9.0.js"></script>
+<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.datepicker').datepicker({showAnim: "fadeIn"});
+	})
+</script>
+<style>
+    .head {
+        border: dashed 1px;
+        border-color: blue;
+        background-color: lightblue;
+        color: blue;
+        margin-top: auto;
+    }
+</style>
+
+
+<header class="head"><h1 align="center">Worker Registration</h1></header>
+<p><h3 align="right">@Html.ActionLink("All Workers", "Index", "Home")</h3></p>
+@using (Html.BeginForm())
+{
+    <div class="container col-lg-offset-3">
+
+        <hr />
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "Please fix the following errors.")
+            <div class="form-group">
+                @Html.LabelFor(m => m.worker.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.worker.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.worker.Name)
+                </div>
+            </div>                          
+            <div class="form-group">
+                @Html.LabelFor(m => m.worker.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-envelope-o"></i>
+                        </span>
+                        @Html.TextBoxFor(m => m.worker.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.worker.Email)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.worker.Birthdate)
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.worker.Birthdate, new { @class = "datepicker form-control control-label col-md-2" })
+                    @Html.ValidationMessageFor(m => m.worker.Birthdate)
+                </div>
+                </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.worker.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.worker.Country, new SelectList(Model.List1, "Country_Id", "country"), "select", new { @class = "form-control", @onchange = "Fillstate()" })
+                    @Html.ValidationMessageFor(m => m.worker.Country)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.worker.State, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.worker.State, new SelectList(Model.List, "Id", "state"), "select", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.worker.State)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.worker.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(m => m.worker.Address, new
+               {
+                   @class = "form-control",
+                   TextMode = "MultiLine",
+                   Columns = "40",
+                   Rows = "4",
+                   type = "text",
+                   required = "required"
+               })
+                    @Html.ValidationMessageFor(m => m.worker.Address)
+                </div>
+            </div>
+            @Html.HiddenFor(m => m.worker.ID)
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12">
+                    <input type="reset" value="Reset" class="btn btn-danger" />
+                    <button type="submit" class="btn btn-info">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+  function Fillstate() {
+    var Country_Id = $('#Country').val();
+    $.ajax({
+        url: '/Home/Fillstate',
+        type: "GET",
+        dataType: "JSON",
+        data: { Country: Country_Id},
+        success: function (states) {
+            $("#State").html(""); // clear before appending new list
+            $.each(states, function (i, state) {
+                $("#State").append(
+                    $('<option></option>').val(state.Id).html(state.state));
+            });
+        }
+    });
+  }
+</script>
+
+

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<week5.Models.Employee>
+@{
+    ViewBag.Title = "Index";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<style>
+    a {
+    color: #337ab7;
+    text-decoration: none;
+    color: white;
+}
+    .editor_edit
+    {
+        color:black;
+    }
+    .editor_remove
+    {
+        color:black;
+    }
+</style>
+<h2>Index</h2>
+<!--Add Jquery Datatable reference files-->
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" />
+<div style="width:90%;">
+    <p>
+        <h4 align="right">
+            <button type="button" class="btn btn-info">@Html.ActionLink("Add Employee", "Create")</button>
+        </h4>
+    </p>
+    <table id="Jdatatable" class="table table-responsive table-bordered">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Marital Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div>
+    
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        $("#Jdatatable").DataTable({
+            "ajax": {
+                "url": "/Home/GetData",
+                "type": "GET",
+                "datatype":"json"
+            },
+            "columns": [
+                        { "data": "EmployeeName", "autoWidth": true },
+                        { "data": "Email", "autoWidth": true },
+                        { "data": "Phone", "autoWidth": true },
+                        { "data": "StateId", "autoWidth": true },
+                        { "data": "CityId", "autoWidth": true },
+            {
+            data:   "Marital_Status",
+        render: function ( data, type, row ) {
+            if ( type === 'display' ) {
+                return '<input type="checkbox" class="editor-active" disabled/>';
+            }
+            return data;
+        },
+        className: "dt-body-center"
+    },
+            {
+                data: null,
+                className: "center",
+                defaultContent: '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>'
+            }
+            ],
+        });
+    });
+    </script>
+}

@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="medhajoshiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblBillingInfo">
+          <Key>
+            <PropertyRef Name="BillingId" />
+          </Key>
+          <Property Name="BillingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillingEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="bigint" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="StateId" Type="int" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ZipCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCountry">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'medhajoshi.dbo.tblCreditInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblCreditInfo">
+          <Key>
+            <PropertyRef Name="CreditId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="CardNumber" />
+            <PropertyRef Name="SecurityCode" />
+            <PropertyRef Name="ExpiryDate" />
+            <PropertyRef Name="TenantId" />
+          </Key>
+          <Property Name="CreditId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CardNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SecurityCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PromoCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReferalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExpiryDate" Type="datetime" Nullable="false" />
+          <Property Name="TenantId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPlan">
+          <Key>
+            <PropertyRef Name="PlanId" />
+          </Key>
+          <Property Name="PlanId" Type="int" Nullable="false" />
+          <Property Name="PlanName" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblState">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="int" Nullable="false" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblTenant">
+          <Key>
+            <PropertyRef Name="TId" />
+          </Key>
+          <Property Name="TenantId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailId" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SubDomain" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PlanId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblBillingInfo_tblState">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="1" />
+          <End Role="tblBillingInfo" Type="Self.tblBillingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="tblBillingInfo">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBillingInfo_tblState1">
+          <End Role="tblState" Type="Self.tblState" Multiplicity="1" />
+          <End Role="tblBillingInfo" Type="Self.tblBillingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblState">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="tblBillingInfo">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblState_tblCountry">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="1" />
+          <End Role="tblState" Type="Self.tblState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="tblState">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTenant_tblPlan">
+          <End Role="tblPlan" Type="Self.tblPlan" Multiplicity="1" />
+          <End Role="tblTenant" Type="Self.tblTenant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPlan">
+              <PropertyRef Name="PlanId" />
+            </Principal>
+            <Dependent Role="tblTenant">
+              <PropertyRef Name="PlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="medhajoshiModelStoreContainer">
+          <EntitySet Name="tblBillingInfo" EntityType="Self.tblBillingInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPlan" EntityType="Self.tblPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblState" EntityType="Self.tblState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTenant" EntityType="Self.tblTenant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCreditInfo" EntityType="Self.tblCreditInfo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblCreditInfo].[CreditId] AS [CreditId], 
+    [tblCreditInfo].[FirstName] AS [FirstName], 
+    [tblCreditInfo].[LastName] AS [LastName], 
+    [tblCreditInfo].[CardNumber] AS [CardNumber], 
+    [tblCreditInfo].[SecurityCode] AS [SecurityCode], 
+    [tblCreditInfo].[PromoCode] AS [PromoCode], 
+    [tblCreditInfo].[ReferalCode] AS [ReferalCode], 
+    [tblCreditInfo].[ExpiryDate] AS [ExpiryDate], 
+    [tblCreditInfo].[TenantId] AS [TenantId]
+    FROM [dbo].[tblCreditInfo] AS [tblCreditInfo]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_tblBillingInfo_tblState" Association="Self.FK_tblBillingInfo_tblState">
+            <End Role="tblCountry" EntitySet="tblCountry" />
+            <End Role="tblBillingInfo" EntitySet="tblBillingInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBillingInfo_tblState1" Association="Self.FK_tblBillingInfo_tblState1">
+            <End Role="tblState" EntitySet="tblState" />
+            <End Role="tblBillingInfo" EntitySet="tblBillingInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblState_tblCountry" Association="Self.FK_tblState_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountry" />
+            <End Role="tblState" EntitySet="tblState" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTenant_tblPlan" Association="Self.FK_tblTenant_tblPlan">
+            <End Role="tblPlan" EntitySet="tblPlan" />
+            <End Role="tblTenant" EntitySet="tblTenant" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="medhajoshiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblBillingInfo">
+          <Key>
+            <PropertyRef Name="BillingId" />
+          </Key>
+          <Property Name="BillingId" Type="Int32" Nullable="false" />
+          <Property Name="BillingEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="Int64" Nullable="false" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ZipCode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblCountry" Relationship="Self.FK_tblBillingInfo_tblState" FromRole="tblBillingInfo" ToRole="tblCountry" />
+          <NavigationProperty Name="tblState" Relationship="Self.FK_tblBillingInfo_tblState1" FromRole="tblBillingInfo" ToRole="tblState" />
+        </EntityType>
+        <EntityType Name="tblCountry">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="CountryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblBillingInfoes" Relationship="Self.FK_tblBillingInfo_tblState" FromRole="tblCountry" ToRole="tblBillingInfo" />
+          <NavigationProperty Name="tblStates" Relationship="Self.FK_tblState_tblCountry" FromRole="tblCountry" ToRole="tblState" />
+        </EntityType>
+        <EntityType Name="tblPlan">
+          <Key>
+            <PropertyRef Name="PlanId" />
+          </Key>
+          <Property Name="PlanId" Type="Int32" Nullable="false" />
+          <Property Name="PlanName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblTenants" Relationship="Self.FK_tblTenant_tblPlan" FromRole="tblPlan" ToRole="tblTenant" />
+        </EntityType>
+        <EntityType Name="tblState">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblBillingInfoes" Relationship="Self.FK_tblBillingInfo_tblState1" FromRole="tblState" ToRole="tblBillingInfo" />
+          <NavigationProperty Name="tblCountry" Relationship="Self.FK_tblState_tblCountry" FromRole="tblState" ToRole="tblCountry" />
+        </EntityType>
+        <EntityType Name="tblTenant">
+          <Key>
+            <PropertyRef Name="TId" />
+          </Key>
+          <Property Name="TId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailId" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConfirmPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubDomain" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PlanId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblPlan" Relationship="Self.FK_tblTenant_tblPlan" FromRole="tblTenant" ToRole="tblPlan" />
+          <Property Name="TenantId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCreditInfo">
+          <Key>
+            <PropertyRef Name="CreditId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="CardNumber" />
+            <PropertyRef Name="SecurityCode" />
+            <PropertyRef Name="ExpiryDate" />
+            <PropertyRef Name="TenantId" />
+          </Key>
+          <Property Name="CreditId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CardNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SecurityCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PromoCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReferalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TenantId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblBillingInfo_tblState">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="1" />
+          <End Role="tblBillingInfo" Type="Self.tblBillingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="tblBillingInfo">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBillingInfo_tblState1">
+          <End Role="tblState" Type="Self.tblState" Multiplicity="1" />
+          <End Role="tblBillingInfo" Type="Self.tblBillingInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblState">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="tblBillingInfo">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblState_tblCountry">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="1" />
+          <End Role="tblState" Type="Self.tblState" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="tblState">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTenant_tblPlan">
+          <End Role="tblPlan" Type="Self.tblPlan" Multiplicity="1" />
+          <End Role="tblTenant" Type="Self.tblTenant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPlan">
+              <PropertyRef Name="PlanId" />
+            </Principal>
+            <Dependent Role="tblTenant">
+              <PropertyRef Name="PlanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="medhajoshiEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblBillingInfoes" EntityType="Self.tblBillingInfo" />
+          <EntitySet Name="tblCountries" EntityType="Self.tblCountry" />
+          <EntitySet Name="tblPlans" EntityType="Self.tblPlan" />
+          <EntitySet Name="tblStates" EntityType="Self.tblState" />
+          <EntitySet Name="tblTenants" EntityType="Self.tblTenant" />
+          <EntitySet Name="tblCreditInfoes" EntityType="Self.tblCreditInfo" />
+          <AssociationSet Name="FK_tblBillingInfo_tblState" Association="Self.FK_tblBillingInfo_tblState">
+            <End Role="tblCountry" EntitySet="tblCountries" />
+            <End Role="tblBillingInfo" EntitySet="tblBillingInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBillingInfo_tblState1" Association="Self.FK_tblBillingInfo_tblState1">
+            <End Role="tblState" EntitySet="tblStates" />
+            <End Role="tblBillingInfo" EntitySet="tblBillingInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblState_tblCountry" Association="Self.FK_tblState_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountries" />
+            <End Role="tblState" EntitySet="tblStates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTenant_tblPlan" Association="Self.FK_tblTenant_tblPlan">
+            <End Role="tblPlan" EntitySet="tblPlans" />
+            <End Role="tblTenant" EntitySet="tblTenants" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="medhajoshiModelStoreContainer" CdmEntityContainer="medhajoshiEntities1">
+          <EntitySetMapping Name="tblBillingInfoes">
+            <EntityTypeMapping TypeName="medhajoshiModel.tblBillingInfo">
+              <MappingFragment StoreEntitySet="tblBillingInfo">
+                <ScalarProperty Name="BillingId" ColumnName="BillingId" />
+                <ScalarProperty Name="BillingEmail" ColumnName="BillingEmail" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCountries">
+            <EntityTypeMapping TypeName="medhajoshiModel.tblCountry">
+              <MappingFragment StoreEntitySet="tblCountry">
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPlans">
+            <EntityTypeMapping TypeName="medhajoshiModel.tblPlan">
+              <MappingFragment StoreEntitySet="tblPlan">
+                <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+                <ScalarProperty Name="PlanName" ColumnName="PlanName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStates">
+            <EntityTypeMapping TypeName="medhajoshiModel.tblState">
+              <MappingFragment StoreEntitySet="tblState">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTenants">
+            <EntityTypeMapping TypeName="medhajoshiModel.tblTenant">
+              <MappingFragment StoreEntitySet="tblTenant">
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="TId" ColumnName="TId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmPassword" ColumnName="ConfirmPassword" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="SubDomain" ColumnName="SubDomain" />
+                <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCreditInfoes">
+            <EntityTypeMapping TypeName="medhajoshiModel.tblCreditInfo">
+              <MappingFragment StoreEntitySet="tblCreditInfo">
+                <ScalarProperty Name="CreditId" ColumnName="CreditId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="SecurityCode" ColumnName="SecurityCode" />
+                <ScalarProperty Name="PromoCode" ColumnName="PromoCode" />
+                <ScalarProperty Name="ReferalCode" ColumnName="ReferalCode" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

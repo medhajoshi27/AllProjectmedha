@@ -1,0 +1,105 @@
+﻿@model week4.Models.Student
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .head {
+            border: dashed 1px;
+            border-color: blue;
+            background-color: lightblue;
+            color:blue;
+        }
+    </style>
+    <script>
+       function showalert()
+        {
+            alert('Update succesfully');
+        }
+    </script>
+</head>
+<body class="container">
+<header class="head"><h1 align="center">Student Registration</h1></header>
+    <p><h3 align="right">@Html.ActionLink("All Students","Index", "Home")</h3></p>
+
+    @using (Html.BeginForm())
+    {
+        <div class="container col-lg-offset-3">
+
+            <hr />
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Student_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Student_Name, new { placeholder = "Full Name", htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Student_Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Student_Age, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Student_Age, new { placeholder = "Age", htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Student_Age, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                            @Html.EditorFor(model => model.Email, new { placeholder = "Email", htmlAttributes = new { @class = "form-control" } })
+
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Qualification, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.RadioButtonFor(model => model.Qualification, "B.E.", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.LabelFor(Model => Model.Qualification, "B.E.")
+                        @Html.RadioButtonFor(model => model.Qualification, "B.Tech", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.LabelFor(Model => Model.Qualification, "B.Tech")<br />
+                        @Html.RadioButtonFor(model => model.Qualification, "M.C.A.", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.LabelFor(Model => Model.Qualification, "M.C.A.")
+                        @Html.RadioButtonFor(model => model.Qualification, "PhD", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.LabelFor(Model => Model.Qualification, "PhD")
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Marital_Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+
+                        @Html.RadioButtonFor(model => model.Marital_Status, "UnMarried", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.LabelFor(Model => Model.Marital_Status, "UnMarried")
+
+                        @Html.RadioButtonFor(model => model.Marital_Status, "Married", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.LabelFor(Model => Model.Marital_Status, "Married")
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Marital_Status, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-12">
+
+                        <input type="reset" value="Reset" class="btn btn-danger" />
+                        <input type="submit" value="Save Details" class="btn btn-info" onclick="showalert()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</body>
+</html>

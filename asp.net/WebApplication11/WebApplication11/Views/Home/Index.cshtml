@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@model IEnumerable<WebApplication11.Models.Customer>
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+<p>
+    @Html.ActionLink("New Customer", "New");
+</p>
+
+<table id="customers" class="table  table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsSubscribedToNewsletter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Memebers)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @*@foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSubscribedToNewsletter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Memebers)
+            </td>
+
+            </tr>}*@
+    </table>
+

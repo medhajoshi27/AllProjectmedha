@@ -1,0 +1,41 @@
+﻿
+
+
+
+@model WebApplication11.Models.dropdwn
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        @Html.LabelFor(m => m.customer.Name)
+        @Html.TextBoxFor(m => m.customer.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.customer.Name)
+    </div>
+  
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.customer.Memebers)
+
+        @Html.DropDownListFor(m => m.customer.Memebers, new SelectList(Model.List, "Name", "Email"), "select", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.customer.Memebers)
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.customer.IsSubscribedToNewsletter) Subscribed to Newsletter?
+        </label>
+    </div>
+
+    @Html.HiddenFor(m => m.customer.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}

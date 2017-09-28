@@ -1,0 +1,13 @@
+﻿@model img.Models.ArtWork
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ImageData, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        <input name="Image" type="file" />
+        @Html.ValidationMessageFor(model => model.ImageData)
+    </div>
+</div>
+<td>
+    <img src="@Url.Action("GetThumbnailImage", "Artwork", new { Model.ArtWorkId })" alt="Artwork Image" />
+</td>
+

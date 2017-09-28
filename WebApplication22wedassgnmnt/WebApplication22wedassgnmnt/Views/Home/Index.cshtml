@@ -1,0 +1,80 @@
+﻿
+@model WebApplication22wedassgnmnt.Models.StudentVM
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+
+<!--Add Jquery Datatable reference files-->
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" />
+<div style="width:90%;">
+    <table id="Jdatatable" class="table table-responsive table-bordered">
+        <thead>
+            <tr>
+                <th>StudId</th>
+                <th>RollNo</th>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Branch</th>
+                <th>Email</th>
+                <th>State</th>
+                <th>FatherName</th>
+                <th>Gender</th>
+               
+
+            </tr>
+        </thead>
+    </table>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/Scripts.js"></script>
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        $("#Jdatatable").DataTable({
+            "ajax": {
+                "url": "@Url.Action("GetData", "Student")",
+                "type": "GET",
+                "datatype":"json"
+            },
+            "columns": [
+                        { "data": "StudId", "autoWidth": true },
+                        { "data": "RollNo", "autowidth": true },
+                        { "data": "Name", "autoWidth": true },
+                        { "data": "Course", "autoWidth": true },
+                        { "data": "Branch", "autoWidth": true },
+                        { "data": "Email", "autoWidth": true },
+                        { "data": "State", "autoWidth": true },
+                        { "data": "FatherName", "autoWidth": true },
+                         { "data": "Gender", "autoWidth": true },
+                        //{ "data": null, "defaultContent": "<input type='checkbox'>", "autoWidth": true },
+                        { "data": null, "defaultContent": "<input type='button' value='Edit'>", "autoWidth": true },
+                        { "data": null, "defaultContent": "<input type='button' value='Delete'>", "autoWidth": true }
+            ]
+        });
+    });
+    </script>
+}
+
+
+@*var value;
+     
+$.ajax({
+    url: '/Api/StudentController/ CreateStudent',
+    type: 'POST',
+    dataType: 'json',
+    data: { id: 'value' },
+    success: function (data) {
+        alert("success");
+    },
+    error: function () {
+        alert('error');
+    }
+});*@
+
+
+        @*<a onclick = "return confirm('Do you want to Delete?')"
+    href = "@Url.Action("Delete ","Customer ",new {id=Cust.CustomerId})">Delete</a>*@

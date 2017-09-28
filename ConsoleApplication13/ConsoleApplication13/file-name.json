@@ -1,0 +1,102 @@
+[
+  {
+    "Id": 101,
+    "Name": "joe",
+    "Email": "joe@exp.com",
+    "phoneNo": {
+      "home": 7454919,
+      "mobile": 748542
+    },
+    "age": 20
+  },
+  {
+    "Id": 102,
+    "Name": "Chandler",
+    "Email": "chandler@exp.com",
+    "phoneNo": {
+      "home": 7454919,
+      "mobile": 748542
+    },
+    "age": 27
+  },
+  {
+    "Id": 103,
+    "Name": "Pheebs",
+    "Email": "pheebs@exp.com",
+    "phoneNo": {
+      "home": 7454919,
+      "mobile": 748542
+    },
+    "age": 23
+  },
+  {
+    "Id": 104,
+    "Name": "Monika ",
+    "Email": "monika@exp.com",
+    "phoneNo": {
+      "home": 7454919,
+      "mobile": 748542
+    },
+    "age": 13
+  },
+  {
+    "Id": 105,
+    "Name": "ross ",
+    "Email": "ross@exp.com",
+    "phoneNo": {
+      "home": 7454919,
+      "mobile": 748542
+    },
+    "age": 21
+  },
+  {
+    "Id": 106,
+    "Name": "rachel",
+    "Email": "rachel@exp.com",
+    "phoneNo": {
+      "home": 7454919,
+      "mobile": 748542
+    },
+    "age": 22
+  },
+  {
+    "Id": 107,
+    "Name": "stuart ",
+    "Email": "stuart@exp.com",
+    "phoneNo": {
+      "home": 7454919,
+      "mobile": 748542
+    },
+    "age": 42
+  },
+  {
+    "Id": 108,
+    "Name": "kevin ",
+    "Email": "kevin@exp.com",
+    "phoneNo": {
+      "home": 7454919,
+      "mobile": 748542
+    },
+    "age": 27
+  },
+  {
+    "Id": 109,
+    "Name": "bob",
+    "Email": "bob@exp.com",
+    "phoneNo": {
+      "home": 7454919,
+      "mobile": 748542
+    },
+    "age": 20
+  },
+  {
+    "Id": 110,
+    "Name": "mini",
+    "Email": "mini@exp.com",
+    "phoneNo": {
+      "home": 7454919,
+      "mobile": 748542
+    },
+    "age": 30
+  }
+]

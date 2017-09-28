@@ -1,0 +1,77 @@
+﻿@model MvcProject297.Models.Student
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Student</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-10"><button>
+    @Html.ActionLink("All Students", "List")
+</button>
+            </div>
+            @Html.LabelFor(model => model.Student_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Student_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Student_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Student_Age, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Student_Age, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Student_Age, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Qualification, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.RadioButtonFor(model => model.Qualification, "B.E.", new { htmlAttributes = new { @class = "form-control" } })B.E.
+                @Html.RadioButtonFor(model => model.Qualification, "MCA", new { htmlAttributes = new { @class = "form-control" } })MCA
+                @Html.RadioButtonFor(model => model.Qualification, "B.Tech", new { htmlAttributes = new { @class = "form-control" } })B.Tech
+                @Html.RadioButtonFor(model => model.Qualification, "PhD", new { htmlAttributes = new { @class = "form-control" } })PhD
+            </div>
+            @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
+
+
+        </div>
+
+        <div class="form-group">
+                   <label class = "control-label col-md-2"  >Marital Status</label>
+            <div class="col-md-10">
+                <form>
+                    <input type="radio" name="marital" value="UnMarried" checked> UnMarried<br>
+                    <input type="radio" name="marital" value="Married"> Married<br>
+                </form> 
+            </div>
+        </div>
+        <div class="form-group">
+             <div class="col-md-offset-1 col-md-10">
+               <button> @Html.ActionLink("ReSet", "Index")</button> 
+                 <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
+
+

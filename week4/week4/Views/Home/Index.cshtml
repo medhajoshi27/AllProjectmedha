@@ -1,0 +1,91 @@
+﻿
+@model IEnumerable<week4.Models.Student>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .head {
+            margin-top:50px;
+            border: dashed 1px;
+            border-color: blue;
+            background-color: lightblue;
+            color: blue;
+        }
+        .tbl {
+            margin-top: 50px;
+            border-color: black;
+        }
+       element.style {
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+    color: white;
+}
+    </style>
+</head>
+<body class="container">
+    <header class="head"> <h1 align="center">All Student Details</h1></header>
+  
+    <table class="table tbl table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student_Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Qualification)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marital_Status)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student_Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qualification)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marital_Status)
+                </td>
+</tr>
+        }
+
+    </table>
+    <p><h4 align="right">
+           <button type="button" class="btn btn-info">@Html.ActionLink("Add Student", "Create")</button>
+    </h4></p>
+   
+</body>
+</html>
